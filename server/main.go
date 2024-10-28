@@ -74,19 +74,28 @@ func handleWebSocket(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	// Create a logging middleware
+	loggingMiddleware := func(next http.Handler) http.Handler {
+		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			log.Printf("%s %s %s\n", r.RemoteAddr, r.Method, r.URL)
+			next.ServeHTTP(w, r)
+		})
+	}
+
 	// Handle WebSocket connections
-	http.HandleFunc("/ws", handleWebSocket)
+	http.Handle("/ws", loggingMiddleware(http.HandlerFunc(handleWebSocket)))
 
 	// Serve static files from the UI dist directory
 	fs := http.FileServer(http.Dir("../ui/dist"))
-	http.Handle("/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	fileHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// If the file doesn't exist, serve index.html
 		if _, err := filepath.Rel("../ui/dist", filepath.Join("../ui/dist", r.URL.Path)); err != nil || r.URL.Path == "/" {
 			http.ServeFile(w, r, "../ui/dist/index.html")
 			return
 		}
 		fs.ServeHTTP(w, r)
-	}))
+	})
+	http.Handle("/", loggingMiddleware(fileHandler))
 
 	log.Println("Starting server on :8080")
 	log.Fatal(http.ListenAndServe(":8080", nil))

@@ -23,8 +23,10 @@ func main() {
 	sessionID := uuid.New().String()
 	baseURL := "6068-23-93-71-96.ngrok-free.app"
 
-	websocketURL := fmt.Sprintf("ws://%s/ws?id=%s", baseURL, sessionID)
+	websocketURL := fmt.Sprintf("wss://%s/ws?id=%s", baseURL, sessionID)
 	webappURL := fmt.Sprintf("http://%s?id=%s", baseURL, sessionID)
+
+	fmt.Println(websocketURL)
 
 	// Create QR code with the webapp URL
 	cmd := exec.Command("qrencode", "-t", "ansiutf8", webappURL)
