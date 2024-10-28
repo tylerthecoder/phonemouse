@@ -1,3 +1,7 @@
+# Phone Mouse
+
+Quick and easy way to control your mouse and keyboard with your phone.
+
 All written in go.
 
 cli app you download that displays a QR code. Go to website and scan the QR code and then you can control the mouse and keyboard.
@@ -19,5 +23,3 @@ Websocket server written in go.
 Two types of clients:
 1. cli app
 2. web app
-
-
