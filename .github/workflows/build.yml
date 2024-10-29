@@ -20,6 +20,15 @@ jobs:
       with:
         go-version: '1.21'
 
+    - name: Install dependencies
+      run: |
+        # Install system dependencies
+        sudo apt-get update
+        sudo apt-get install -y qrencode xorg-dev libx11-dev libxrandr-dev libxtst-dev
+
+        # Install Go dependencies
+        go mod download
+
     - name: Build CLI
       run: |
         chmod +x build-cli.sh
