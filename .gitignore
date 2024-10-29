@@ -17,6 +17,3 @@ ui/node_modules/
 
 # OS files
 .DS_Store
-
-go.mod
-go.sum
