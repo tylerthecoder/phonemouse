@@ -4,7 +4,7 @@ Control your computer's mouse using your phone as a touchpad.
 
 ## Download and run
 ```
-curl -L https://github.com/tylerthecoder/phone-mouse-control/releases/download/main/phone-mouse -o phonemouse
+curl -L https://github.com/tylerthecoder/phonemouse/releases/download/main/phone-mouse -o phonemouse
 chmod +x ./phonemouse
 ./phonemouse
 ```
