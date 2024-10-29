@@ -9,8 +9,6 @@ chmod +x ./phonemouse
 ./phonemouse
 ```
 
-
-
 ## Development Setup
 
 ### Prerequisites
@@ -18,4 +16,3 @@ chmod +x ./phonemouse
 - Node.js 18 or later
 - qrencode
 
-### Building the CLI
