@@ -34,29 +34,15 @@ jobs:
         chmod +x build-cli.sh
         ./build-cli.sh
 
-    - name: Upload Linux Build
-      uses: actions/upload-artifact@v3
+    - name: Upload files to a GitHub release
+      uses: svenstaro/upload-release-action@2.9.0
       with:
-        name: phone-mouse-cli-linux
-        path: dist/phone-mouse-cli-linux-amd64
-
-    - name: Upload MacOS Intel Build
-      uses: actions/upload-artifact@v3
-      with:
-        name: phone-mouse-cli-macos-intel
-        path: dist/phone-mouse-cli-darwin-amd64
-
-    - name: Upload MacOS ARM Build
-      uses: actions/upload-artifact@v3
-      with:
-        name: phone-mouse-cli-macos-arm
-        path: dist/phone-mouse-cli-darwin-arm64
-
-    - name: Upload Windows Build
-      uses: actions/upload-artifact@v3
-      with:
-        name: phone-mouse-cli-windows
-        path: dist/phone-mouse-cli-windows-amd64.exe
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: ./dist/phone-mouse-cli-linux-amd64
+        asset_name: phone-mouse
+        tag: ${{ github.ref }}
+        overwrite: true
+        body: "This is my latest application build"
 
     - name: List artifacts
       run: ls -R dist/

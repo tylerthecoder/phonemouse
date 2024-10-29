@@ -2,11 +2,11 @@
 
 Control your computer's mouse using your phone as a touchpad.
 
-## Download
+## Download and run
 ```
-curl -L https://github.com/tylerthecoder/phone-mouse-control/releases/download/main/phone-mouse-cli-linux-amd64 -o phone-mouse-cli
-chmod +x ./phone-mouse-cli
-./phone-mouse-cli
+curl -L https://github.com/tylerthecoder/phone-mouse-control/releases/download/main/phone-mouse -o phonemouse
+chmod +x ./phonemouse
+./phonemouse
 ```
 
 
