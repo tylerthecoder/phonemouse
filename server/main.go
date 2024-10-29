@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 	"path/filepath"
 	"sync"
 
@@ -85,12 +86,33 @@ func main() {
 	// Handle WebSocket connections
 	http.Handle("/ws", loggingMiddleware(http.HandlerFunc(handleWebSocket)))
 
+	staticDirPath := os.Getenv("STATIC_DIR")
+	if staticDirPath == "" {
+		staticDirPath = "../ui/dist"
+	}
+	staticDir := http.Dir(staticDirPath)
+	indexPath := filepath.Join(string(staticDir), "index.html")
+	log.Println("Serving index.html from", indexPath)
+	absIndexPath, err := filepath.Abs(indexPath)
+	if err != nil {
+		log.Fatal("Failed to get index.html path:", err)
+	}
+	indexPath = absIndexPath
+	log.Println("Absolute index.html path:", indexPath)
+
 	// Serve static files from the UI dist directory
-	fs := http.FileServer(http.Dir("../ui/dist"))
+	fs := http.FileServer(staticDir)
 	fileHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		log.Println("Serving file:", r.URL.Path)
+		if r.URL.Path == "/" {
+			log.Println("Serving index.html for", r.URL.Path)
+			http.ServeFile(w, r, indexPath)
+			return
+		}
 		// If the file doesn't exist, serve index.html
-		if _, err := filepath.Rel("../ui/dist", filepath.Join("../ui/dist", r.URL.Path)); err != nil || r.URL.Path == "/" {
-			http.ServeFile(w, r, "../ui/dist/index.html")
+		if _, err := filepath.Rel(string(staticDir), filepath.Join(string(staticDir), r.URL.Path)); err != nil {
+			log.Println("Serving index.html for", r.URL.Path)
+			http.ServeFile(w, r, indexPath)
 			return
 		}
 		fs.ServeHTTP(w, r)

@@ -21,7 +21,7 @@ type MouseCommand struct {
 func main() {
 	// Generate unique ID for this session
 	sessionID := uuid.New().String()
-	baseURL := "6068-23-93-71-96.ngrok-free.app"
+	baseURL := "phonemouse.tylertracy.com"
 
 	websocketURL := fmt.Sprintf("wss://%s/ws?id=%s", baseURL, sessionID)
 	webappURL := fmt.Sprintf("http://%s?id=%s", baseURL, sessionID)

@@ -1,3 +1,22 @@
-ui/dist
+# Build outputs
+bin/
+dist/
+ui/dist/
+
+# Dependencies
+node_modules/
+ui/node_modules/
+
+# Environment files
+.env
+*.env
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+
 go.mod
 go.sum

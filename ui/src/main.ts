@@ -1,6 +1,5 @@
 import './style.css'
 
-const baseURL = "6068-23-93-71-96.ngrok-free.app"
 
 // Get URL parameters
 const urlParams = new URLSearchParams(window.location.search);
@@ -95,6 +94,7 @@ function drawBall() {
 resizeCanvas();
 
 // Connect to WebSocket server
+const baseURL = window.location.hostname;
 const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
 const ws = new WebSocket(`${protocol}//${baseURL}/ws?id=${id}`);
 

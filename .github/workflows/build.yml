@@ -1,0 +1,53 @@
+name: Build CLI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.21'
+
+    - name: Build CLI
+      run: |
+        chmod +x build-cli.sh
+        ./build-cli.sh
+
+    - name: Upload Linux Build
+      uses: actions/upload-artifact@v3
+      with:
+        name: phone-mouse-cli-linux
+        path: dist/phone-mouse-cli-linux-amd64
+
+    - name: Upload MacOS Intel Build
+      uses: actions/upload-artifact@v3
+      with:
+        name: phone-mouse-cli-macos-intel
+        path: dist/phone-mouse-cli-darwin-amd64
+
+    - name: Upload MacOS ARM Build
+      uses: actions/upload-artifact@v3
+      with:
+        name: phone-mouse-cli-macos-arm
+        path: dist/phone-mouse-cli-darwin-arm64
+
+    - name: Upload Windows Build
+      uses: actions/upload-artifact@v3
+      with:
+        name: phone-mouse-cli-windows
+        path: dist/phone-mouse-cli-windows-amd64.exe
+
+    - name: List artifacts
+      run: ls -R dist/

@@ -1,25 +1,21 @@
-# Phone Mouse
+# Phone Mouse Control
 
-Quick and easy way to control your mouse and keyboard with your phone.
+Control your computer's mouse using your phone as a touchpad.
 
-All written in go.
-
-cli app you download that displays a QR code. Go to website and scan the QR code and then you can control the mouse and keyboard.
-
-Display qr code with qrencode package
-example:
+## Download
 ```
-https://superuser.com/questions/1492624/how-do-you-output-a-qr-code-to-the-linux-cli-terminal-for-scanning
+curl -L https://github.com/tylerthecoder/phone-mouse-control/releases/download/main/phone-mouse-cli-linux-amd64 -o phone-mouse-cli
+chmod +x ./phone-mouse-cli
+./phone-mouse-cli
 ```
 
-The qr code points you to a url with an id as a parameter. And connects to the websocket server.
-
-The ui has a canvas with a red ball in the center. When you touch that ball and move it, it sends the diff to the server.
-
-The cli connects to the websocket server as well and listens for commands from clients with the same id. When it gets a command, it moves the mouse.
 
 
-Websocket server written in go.
-Two types of clients:
-1. cli app
-2. web app
+## Development Setup
+
+### Prerequisites
+- Go 1.21 or later
+- Node.js 18 or later
+- qrencode
+
+### Building the CLI
